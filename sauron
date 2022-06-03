@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+#"A Great Eye, lidless, wreathed in flame."
+
+# sauron
+# A simple test watcher.
+
+# Any time it detects a change in the files found by FILE_GLOB, it clears the
+# screen and runs the command in TEST_COMMAND.  Useful for running a test suite
+# on every file change.
+
+echo "Watching..."
+
+export FILE_GLOB="*.rb"     # or the files you want to watch...
+export TEST_COMMAND="rspec" # or your weapon of choice...
+
+if [[ "$OSTYPE" =~ "linux" ]]; then
+  # sudo apt install inotify-tools
+  while inotifywait -r -e modify .; do
+    clear
+    ruby ./tests/finger_strings_test.rb
+  done
+fi
+
+if [[ "$OSTYPE" =~ "darwin".* ]]; then
+  # brew install entr
+  find . -name "$FILE_GLOB" | entr sh -c 'clear; $TEST_COMMAND'
+fi
