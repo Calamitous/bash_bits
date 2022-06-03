@@ -1,0 +1,2 @@
+# Use this to quickly add and reload aliases.  Modify for your preferred shell.
+alias change_aliases='vim ~/.zsh_aliases; source ~/.zsh_aliases'
