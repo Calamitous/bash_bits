@@ -9,10 +9,18 @@
 # screen and runs the command in TEST_COMMAND.  Useful for running a test suite
 # on every file change.
 
+# USAGE:
+# ./sauron <test command>
+#
+# EXAMPLE:
+# ./sauron bundle exec rspec
+
 echo "Watching..."
 
 export FILE_GLOB="*.rb"     # or the files you want to watch...
-export TEST_COMMAND="rspec" # or your weapon of choice...
+export TEST_COMMAND="$@" # or your weapon of choice...
+# export TEST_COMMAND="rspec" # or your weapon of choice...
+# export TEST_COMMAND="echo HI" # or your weapon of choice...
 
 if [[ "$OSTYPE" =~ "linux" ]]; then
   # sudo apt install inotify-tools
